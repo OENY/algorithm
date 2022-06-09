@@ -24,7 +24,7 @@ public interface LinkedList{
      * 添加到指定位置
      * @param index
      */
-    void addByIndex(int index);
+    void add(Integer element,int index);
 
     /**
      * 获取制定索引的元素

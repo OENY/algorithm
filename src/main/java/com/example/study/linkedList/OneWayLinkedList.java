@@ -49,7 +49,19 @@ public class OneWayLinkedList implements LinkedList {
     }
 
     @Override
-    public void addByIndex(int index) {
+    public void add(Integer element,int index) {
+        if(index == 1){
+            addToHead(element);
+        }
+        if(index == size){
+            addToTail(element);
+        }
+
+        // 获取index前置节点
+        Node preNode = get(index - 1);
+        Node node = new Node(element, preNode.next);
+        preNode.next = node;
+        size++;
 
     }
 
