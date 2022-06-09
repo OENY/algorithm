@@ -98,10 +98,19 @@ public class OneWayLinkedList implements LinkedList {
 
     @Override
     public Node remove(int index) {
-
-
+        if (index == 1) {
+            Node deletedNode = head;
+            head = head.next;
+            size--;
+            return deletedNode;
+        }
+        // 定位index-1 的节点
+        Node preNode = get(index - 1);
+        // 定位index 节点
+        Node deletedNode = get(index);
+        preNode.next = deletedNode.next;
         size--;
-        return null;
+        return deletedNode;
     }
 
 
