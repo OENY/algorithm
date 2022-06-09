@@ -5,7 +5,7 @@ package com.example.study.linkedList;
  * @Description: 单向链表
  * @Date: 2022/6/9 11:21
  */
-public class OneWayLinkedList implements LinkedList<Integer> {
+public class OneWayLinkedList implements LinkedList {
     /**
      * 头指针
      */
@@ -54,44 +54,44 @@ public class OneWayLinkedList implements LinkedList<Integer> {
     }
 
     @Override
-    public Integer get(int index) {
-        return null;
+    public Node get(int index) {
+
+        if(index<1){
+            throw new RuntimeException("索引应该大于等于1");
+        }
+
+        if(index > size){
+            throw new RuntimeException("索引超出链表长度");
+        }
+
+        int count = 0;
+        Node cur = null;
+        while (count <= index){
+
+            if(count == 0){
+                cur = this.head;
+            }else {
+                cur = cur.next;
+            }
+            count++;
+
+        }
+        return cur;
     }
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
-    public Integer remove(int index) {
+    public Node remove(int index) {
+
+
+        size--;
         return null;
     }
 
-
-    /**
-     * 获取指定索引的节点
-     * @param index
-     * @return
-     */
-    private Node getNodeByIndex(Integer index){
-        // 如果大于链表长度，返回null
-        if(index > size){
-            throw new RuntimeException("索引大于链表长度");
-        }
-        if(index < 1){
-            throw new RuntimeException("索引应该大于等于1");
-        }
-        int count = 1;
-        Node indexNode = this.head;
-
-        // todo:
-        while (count <= index && indexNode.next != null){
-            indexNode = indexNode.next;
-            count++;
-        }
-        return indexNode;
-    }
 
     /**
      * 获取尾部节点

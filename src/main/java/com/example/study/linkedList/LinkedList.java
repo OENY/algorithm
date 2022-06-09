@@ -5,20 +5,20 @@ package com.example.study.linkedList;
  * @Description: 链表常用操作接口定义
  * @Date: 2022/6/9 11:27
  */
-public interface LinkedList <E>{
+public interface LinkedList{
 
 
     /**
      * 添加到头部
      * @param element
      */
-    void addToHead(E element);
+    void addToHead(Integer element);
 
     /**
      * 添加到尾部
      * @param element
      */
-    void addToTail(E element);
+    void addToTail(Integer element);
 
     /**
      * 添加到指定位置
@@ -31,7 +31,7 @@ public interface LinkedList <E>{
      * @param index
      * @return
      */
-    E get(int index);
+    Node get(int index);
 
 
     /**
@@ -45,6 +45,6 @@ public interface LinkedList <E>{
      * @param index
      * @return
      */
-    E remove(int index);
+    Node remove(int index);
 
 }
