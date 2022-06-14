@@ -33,6 +33,36 @@ public class Sort {
     }
 
 
+    /**
+     * 插入排序-实现思路: 把数组分为两个区间，有序区间和无序区间【注意：一个数，是有序的】，依次从无序区间中，取数，插入至有序区间
+     */
+    @Test
+    public void InsertionSort(){
+        int[] arr = new int[]{6,5,7,8,9,1,3,2};
+
+        for (int i = 1; i < arr.length; i++) {
+
+            // 记录插入的数据的值
+            int value = arr[i];
+            int j = i-1;
+
+            for (;j >=0 ;j--){
+                if(arr[j] > value){
+                    arr[j+1] = arr[j];
+                }else {
+                    break;
+                }
+            }
+
+            // 插入数据
+            arr[j+1] = value;
+
+        }
+
+        printArr(arr);
+    }
+
+
     private void printArr(int[] arr){
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
