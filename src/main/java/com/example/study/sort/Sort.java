@@ -34,7 +34,7 @@ public class Sort {
 
 
     /**
-     * 插入排序-实现思路: 把数组分为两个区间，有序区间和无序区间【注意：一个数，是有序的】，依次从无序区间中，取数，插入至有序区间
+     * 插入排序-实现思路: 把数组分为两个区间，有序区间和无序区间【注意：一个数，是有序的】，随机从无序区间中，取数，插入至有序区间
      */
     @Test
     public void InsertionSort(){
@@ -57,6 +57,30 @@ public class Sort {
             // 插入数据
             arr[j+1] = value;
 
+        }
+
+        printArr(arr);
+    }
+
+
+    /**
+     * 选择排序-实现思路：有序区间和无序区间，找出无序区间的最小值，插入至有序区间的末尾
+     */
+    @Test
+    public void SelectionSort(){
+        int[] arr = new int[]{6,5,7,8,9,1,3,2};
+
+        for (int i = 0; i < arr.length; i++) {
+            // 记录最小值索引
+            int min = i;
+            for (int j = i+1; j < arr.length; j++) {
+                // 找出无序区间的最小值
+                if(arr[j] < arr[min]){
+                    min = j;
+                }
+            }
+            // 将最小值插入至有序区间的末尾
+            swap(arr,min,i);
         }
 
         printArr(arr);
