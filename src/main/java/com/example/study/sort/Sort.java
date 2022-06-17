@@ -75,19 +75,104 @@ public class Sort {
             int min = i;
             for (int j = i+1; j < arr.length; j++) {
                 // 找出无序区间的最小值
-                if(arr[j] < arr[min]){
+                if (arr[j] < arr[min]) {
                     min = j;
                 }
             }
             // 将最小值插入至有序区间的末尾
-            swap(arr,min,i);
+            swap(arr, min, i);
         }
 
         printArr(arr);
     }
 
+    /**
+     * 归并排序：分而治之+划分两个区间+递归+合并有序数组
+     */
+    @Test
+    public void MergeSortTest() {
+        int[] arr = new int[]{6, 5, 7, 8, 9, 1, 3, 2};
+        int low = 0;
+        int high = arr.length - 1;
 
-    private void printArr(int[] arr){
+        mergeSort(arr, low, high);
+
+        printArr(arr);
+    }
+
+
+    /**
+     * 归并排序
+     *
+     * @param arr
+     * @param low
+     * @param high
+     */
+    private void mergeSort(int[] arr, int low, int high) {
+
+        // 递归截止条件
+        if (low >= high) {
+            return;
+        }
+        // 获取中间点
+        int mid = (low + high) / 2;
+
+        // 划分两个区间，分别各自合并
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid + 1, high);
+
+        // 合并两个有序数组
+        mergeSeqArr(arr, low, mid, high);
+
+    }
+
+    /**
+     * 合并两个有序数组
+     *
+     * @param arr
+     * @param low
+     * @param mid
+     * @param high
+     */
+    private void mergeSeqArr(int[] arr, int low, int mid, int high) {
+        // todo:定义临时数组 关注点 +1
+        int[] res = new int[high - low + 1];
+
+        int i = 0;
+
+        int p = low;
+        int q = mid + 1;
+
+        // 双指针法
+        while (p <= mid && q <= high) {
+            if (arr[p] < arr[q]) {
+                res[i++] = arr[p++];
+            } else {
+                res[i++] = arr[q++];
+            }
+        }
+        if (p <= mid) {
+            while (p <= mid) {
+                res[i++] = arr[p++];
+            }
+        }
+
+        if (q <= high) {
+            while (q <= high) {
+                res[i++] = arr[q++];
+            }
+        }
+
+        // todo:将临时数组中的数据拷贝至arr
+        for (int j = 0; j < res.length; j++) {
+            // 临时数组res只是 arr的子区间而已
+            arr[low + j] = res[j];
+        }
+
+    }
+
+
+    private void printArr(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
         }
