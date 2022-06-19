@@ -135,7 +135,7 @@ public class Sort {
      * @param high
      */
     private void mergeSeqArr(int[] arr, int low, int mid, int high) {
-        // todo:定义临时数组 关注点 +1
+        // todo:定义临时数组 关注点 +1  | 导致空间复杂度 升为O(n)
         int[] res = new int[high - low + 1];
 
         int i = 0;
@@ -169,6 +169,85 @@ public class Sort {
             arr[low + j] = res[j];
         }
 
+    }
+
+
+    /**
+     * 快速排序思想:分而治之+先总体后局部有序+递归+哨兵【可从首或者尾部选取数据，技巧：将该数据用临时变量存储起来】
+     * 编码核心：哨兵+左找右+右找左
+     * 时间复杂度：log(n)
+     * 优势：原地排序  和归并排序比较
+     */
+    @Test
+    public void quickSortTest() {
+        int[] arr = new int[]{6, 5, 7, 8, 9, 1, 3, 2};
+        quickSort(arr, 0, arr.length - 1);
+        printArr(arr);
+    }
+
+
+    private void quickSort(int[] arr, int low, int high) {
+
+        // 递归结束条件
+        if (low >= high) {
+            return;
+        }
+
+        // 取arr的第一个元素value，将arr根据大于value或者小于 划分两个区域，返回分区点下标
+        int pivot = pivot(arr, low, high);
+        // 以分区点下标，划分两个区间，分别进行快速排序
+        quickSort(arr, low, pivot);
+        quickSort(arr, pivot + 1, high);
+
+    }
+
+    private int pivot(int[] arr, int start, int end) {
+        // 选取 arr 第一个元素
+        // 选取元素，与arr进行比较，并移动数据
+
+        // 定义双指针
+        int low = start;
+        int high = end;
+
+
+        // 先假设哨兵为第一个元素
+        int guard = low;
+        int guardValue = arr[low];
+
+        while (low <= high) {
+            // 核心：左找右-小，右找左-大 | 哨兵在左边，从右边开始比较找比哨兵小的元素，哨兵在右边，找比哨兵大的元素
+
+            // 说明哨兵在左边
+            if (guard == low) {
+                // 哨兵在左，从右边找比哨兵小的元素
+                if (arr[high] < guardValue) {
+                    // 交换哨兵位置
+                    swap(arr, guard, high);
+
+                    // 更新哨兵交换后的位置信息
+                    guard = high;
+                } else {
+                    high--;
+                }
+            }
+
+
+            // 说明哨兵在右边
+            if (guard == high) {
+                // 如果哨兵在右，从左找找比哨兵大的元素
+                if (arr[low] > guardValue) {
+                    // 交换哨兵位置
+                    swap(arr, guard, low);
+
+                    // 更新哨兵交换后的位置信息
+                    guard = low;
+
+                } else {
+                    low++;
+                }
+            }
+        }
+        return guard;
     }
 
 
