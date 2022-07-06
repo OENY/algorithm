@@ -142,6 +142,48 @@ public class BinarySearchTree {
         return p;
     }
 
+    /**
+     * 前驱节点：找出该节点左子树中的最大值
+     *
+     * @return
+     */
+    private Node findPreNode(int data) {
+        // 定位到该节点
+        Node node = find(data);
+
+        // 遍历左子树，寻找左子树最大值
+        if (node.left != null) {
+            Node p = node.left;
+            while (p != null) {
+                p = p.right;
+            }
+            return p;
+        }
+
+        // 没有前驱节点
+        return null;
+
+    }
+
+    /**
+     * 后驱节点：找出该节点右子树中的最小值
+     *
+     * @param data
+     * @return
+     */
+    private Node findNextNode(int data) {
+        // 定位到该节点
+        Node node = find(data);
+        // 遍历右子树，寻找右子树最小值
+        if (node.right != null) {
+            Node p = node.right;
+            while (p != null) {
+                p = p.left;
+            }
+            return p;
+        }
+        return null;
+    }
 
     // 定义一个node
     class Node {
