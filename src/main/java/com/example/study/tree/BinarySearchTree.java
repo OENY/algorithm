@@ -87,6 +87,8 @@ public class BinarySearchTree {
             // 1、定位到右子树中最小的节点，为叶子节点（这是二叉搜索树的特性）
             Node minP = p.right;
             Node minPP = p;
+
+            // 注意：这里要使用minP.left != null 而不能使用minP != null
             while (minP.left != null) {
                 minPP = minP;
                 minP = minPP.left;
@@ -123,7 +125,7 @@ public class BinarySearchTree {
      */
     private Node findMin() {
         Node p = tree;
-        while (p != null) {
+        while (p.left != null) {
             p = p.left;
         }
         return p;
@@ -136,7 +138,7 @@ public class BinarySearchTree {
      */
     private Node findMax() {
         Node p = tree;
-        while (p != null) {
+        while (p.right != null) {
             p = p.right;
         }
         return p;
