@@ -52,6 +52,39 @@ public class MaxHeap {
 
 
     /**
+     * 移除堆顶元素：1、将最后一个元素放到对顶， 2、 然后从上往下依次调整-自顶向下堆化
+     */
+    public void removeMax() {
+        if (count <= 0) return;
+        // 1、移除堆顶元素，并将最后一个元素移动到该位置
+        array[1] = array[count];
+        --count;
+
+        // 2、自顶向下堆化
+        int i = 1;// 从1开始
+        while (true) {
+
+            // 每次默认i处为最大值
+            int maxPos = i;
+
+            // 三数比较，记录最大值
+            if (2 * i <= count && array[2 * i] > array[maxPos]) maxPos = 2 * i;
+            if (2 * i + 1 <= count && array[2 * i + 1] > array[maxPos]) maxPos = 2 * i;
+
+            // 说明已满足堆化条件
+            if (maxPos == i) {
+                return;
+            }
+
+            swap(array, i, maxPos);
+
+            // 继续遍历
+            i = maxPos;
+        }
+    }
+
+
+    /**
      * 交换两个元素
      *
      * @param array

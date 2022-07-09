@@ -45,6 +45,34 @@ public class MinHeap {
         }
     }
 
+
+    /**
+     * 移除堆顶元素：1、移除堆顶元素，并将最后一个节点交换至堆顶 2、自顶向上堆化
+     */
+    public void removeMin() {
+        // 1、移除堆顶元素，并将最后一个节点狡猾那至堆顶
+        array[1] = array[count];
+        --count;
+
+        // 2、自顶向上堆化
+        int i = 1;// 从堆顶开始
+        while (true) {
+            int maxPos = i;
+
+            // 除了判定条件之外,也要注意索引条件
+            if (2 * i <= count && array[2 * i] < array[maxPos]) maxPos = 2 * i;
+            if (2 * i + 1 <= count && array[2 * i + 1] < array[maxPos]) maxPos = 2 * i + 1;
+
+            // 说明，已满足堆条件，无需再堆化
+            if (maxPos == i) {
+                return;
+            }
+
+            swap(array, i, maxPos);
+            i = maxPos;
+        }
+    }
+
     /**
      * 交换两个元素
      *
