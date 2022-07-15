@@ -37,7 +37,7 @@ public class EightQueens {
         for (int column = 0; column < 8; column++) {
             //每种选择判断是否符合条件，如果不满足条件,则剪枝
             // 注意：这里的column就是一种选择
-            if (isOk(row, column)) {
+            if (isOk(column, row)) {
                 // 存下来
                 result[row] = column;
                 // 递进
@@ -51,7 +51,7 @@ public class EightQueens {
     /**
      * 判断是否满足，八皇后条件，左上，上，右上，都不能有数
      */
-    private boolean isOk(int row, int column) {
+    private boolean isOk(int column, int row) {
 
         // 左上
         int leftUp = column - 1;
