@@ -3,7 +3,7 @@ package com.example.study.backtrack;
 import org.junit.Test;
 
 /**
- * 八皇后问题
+ * 八皇后问题：回溯+深度优先搜索算法
  */
 public class EightQueens {
 
@@ -36,6 +36,7 @@ public class EightQueens {
         // 遍历8种选择
         for (int column = 0; column < 8; column++) {
             //每种选择判断是否符合条件，如果不满足条件,则剪枝
+            // 注意：这里的column就是一种选择
             if (isOk(row, column)) {
                 // 存下来
                 result[row] = column;
