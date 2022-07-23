@@ -27,7 +27,7 @@ public class ArrayQueue {
     }
 
     /**
-     * 入队-从尾部入队
+     * 入队-从尾部入队 todo：这里通过改进，也可以实现动态数组，主要利用将head,tail的数据 搬移到前部
      *
      * @param item
      * @return
