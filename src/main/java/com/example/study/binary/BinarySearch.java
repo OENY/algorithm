@@ -38,7 +38,7 @@ public class BinarySearch {
     }
 
     /**
-     * 题目，找大于等于给定值的第一个元素
+     * 题目，找大于给定值的第一个元素
      *
      * @param arr
      * @param target
@@ -51,9 +51,12 @@ public class BinarySearch {
         while (low <= high) {
             int mid = (high + low) / 2;
             if (target == arr[mid]) {
-                // 找到了,然后右移，极客找到 大于 等于给定值的第一个元素
-                if (mid + 1 <= arr.length - 1) {
-                    return arr[mid + 1]; // 注意：如果是大于的话，则需要不断右移，只有不等于，且大于arr[mid]时，才是想要的，否则不是
+                // 找到了,然后右移，极客找到 大于 给定值的第一个元素
+                while (mid + 1 < arr.length) {
+                    if (arr[mid + 1] != target) {
+                        return arr[mid + 1];
+                    }
+                    mid = mid + 1;
                 }
                 return -1;
             } else if (target < arr[mid]) {
