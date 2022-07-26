@@ -201,6 +201,44 @@ public class Sort {
 
     }
 
+
+    @Test
+    public void TestSearchTopK() {
+        int[] arr = new int[]{6, 5, 7, 8, 9, 1, 3, 2};
+        int k = 4;
+        int i = searchTopK(arr, 0, arr.length - 1, k);
+        System.out.println(i);
+    }
+
+
+    /**
+     * 题目：如何用快排思想在O(n)内查找第k大元素,要求时间复杂度O(n)
+     * 思路：分区后，[start,pivot-1] [pivot] [pivot+1,end] 三个区间，将 K与分区后的pivot进行比较，如果K=pivot+1 ,则第k大元素为arr[pivot]
+     * 时间复杂度  O(2n+1)
+     * 如果k>pivot+1,则  继续对[pivot+1,end]，进行分区，依次类推寻找k,不断递归
+     */
+
+    private int searchTopK(int[] arr, int low, int high, int k) {
+
+        // 递归截止条件
+        if (low >= high) {
+            return arr[low];
+        }
+
+        // 递归体
+
+        // 分区
+        int pivot = pivot(arr, low, high);
+
+        if (k == pivot + 1) {
+            return arr[pivot];
+        } else if (k > pivot + 1) {
+            return searchTopK(arr, pivot + 1, high, k);
+        } else {
+            return searchTopK(arr, low, pivot - 1, k);
+        }
+    }
+
     private int pivot(int[] arr, int start, int end) {
         // 选取 arr 第一个元素
         // 选取元素，与arr进行比较，并移动数据
