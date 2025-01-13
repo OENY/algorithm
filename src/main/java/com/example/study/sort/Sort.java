@@ -64,6 +64,31 @@ public class Sort {
 
 
     /**
+     * 插入排序是指讲无序区间得元素，选出来，插入有序区间,注意：1、这里得初始有序区间是指一个元素得区间 2、插入时，从后往前比较插入
+     * 备注：将一个数组从逻辑上化为有序区间和无序区间
+     */
+    @Test
+    public void InsertionSort_1(){
+        int[] arr = new int[]{6,5,7,8,9,1,3,2};
+        //遍历无序区间,从1开始
+        for(int i = 1;i<arr.length;i++){
+            int value = arr[i];
+            // 和有序区间进行比较,然后插入
+            int j = i-1;
+            while(j>=0 &&arr[j] > value){
+                // 将大于value值右移
+                arr[j+1] = arr[j];
+                j--;
+            }
+            // 插入元素
+            arr[j+1] = value;
+
+        }
+        printArr(arr);
+    }
+
+
+    /**
      * 选择排序-实现思路：有序区间和无序区间，找出无序区间的最小值，插入至有序区间的末尾
      */
     @Test
