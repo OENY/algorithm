@@ -110,4 +110,80 @@ public class Recursive {
             AlgUtil.swap(nums,start,i);
         }
     }
+
+    /**
+     * 组合问题：从n个不同元素中，任取m个元素组成一组（m<=n）,叫做从n个不同元素中取出m个元素的一个组合
+     * 本质：从n个数中，选k个数的组合
+     */
+    @Test
+    public void combineTest() {
+        int n = 6;
+        int k = 3;
+        // 结果集
+        List<List<Integer>> result = new ArrayList<>();
+        // 路径
+        List<Integer> path = new ArrayList<>();
+        combine(n,k,0,path,result);
+        System.out.println(result);
+    }
+
+
+    private void combine(int n, int k, int start, List<Integer> path, List<List<Integer>> result) {
+        // 递归截止条件：路径长度等于k
+        if(path.size() == k){
+            result.add(new ArrayList<>(path));
+            return;
+        }
+
+        // 遍历选择列表
+        for(int i = start; i < n; i++){
+            // 做选择
+            path.add(i);
+
+            // 递归调用
+            combine(n,k,i+1,path,result);
+
+            // 回溯：撤销选择
+            path.remove(path.size()-1);
+        }
+
+    }
+
+    /**
+     * 子集问题：给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）
+     * 1、子集问题，可以转化为组合问题
+     * 2、从n个数中，选k个数的组合
+     * 3、k的取值范围是[0,n]
+     */
+    @Test
+    public void subSetTest(){
+        int[] nums = {1,2,3};
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        subSet(nums,0,path,result);
+        System.out.println(result);
+    }
+
+    /**
+     * 子集问题
+     * @param nums
+     * @param start
+     * @param path
+     * @param result
+     */
+    private void subSet(int[] nums, int start,List<Integer>path, List<List<Integer>> result) {
+        // 递归截止条件:因为是求所有子集，所以全部都保存下来
+        result.add(new ArrayList<>(path));
+
+        // 遍历选择列表
+        for(int i = start; i < nums.length; i++){
+            // 做选择
+            path.add(nums[i]);
+            // 递归
+            subSet(nums,i+1,path,result);
+            // 撤销选择：回溯
+            path.remove(path.size()-1);
+        }
+
+    }
 }
