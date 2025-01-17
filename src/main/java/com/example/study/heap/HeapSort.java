@@ -4,77 +4,62 @@ import com.example.study.util.AlgUtil;
 import org.junit.Test;
 
 /**
- * 堆排序:注意这里的数组下标，不使用下标0,如果要使用下标0，则节点i的leftChild=2*i+1,rightChild=2*i+2
+ *  堆排序实现：原地排序
  */
 public class HeapSort {
 
     @Test
     public void app() {
         int[] array = new int[]{0, 99, 2, 4, 3};
-        heapSort(array, array.length - 1);
-        for (int i = 1; i < array.length; i++) {
+        // 构建最大堆:在尾部插入元素,依次和其父元素进行比较,然后依次相上调整
+        for(int i=0;i<array.length;i++){
+            int x = i;
+            int parent = (x-1)/2;
+            while (parent>=0 && array[parent]<array[i]){
+                AlgUtil.swap(array,x,parent);
+                // 更新x
+                x = parent;
+                // 更新parent
+                parent = (x-1)/2;
+            }
+        }
+        // 堆排序:取栈顶元素，将末尾元素放在这个位置然后剩余元素重新堆化,依次取栈顶元素，然后依次相下调整，其中栈顶元素依次放在末尾
+
+        // 取栈顶元素,放到尾部
+        for(int j =array.length-1;j>=0;j--){
+            // 将栈顶元素放在末尾
+            AlgUtil.swap(array,0, j);
+            // 向下堆化：比较栈顶元素与左右子节点中得最大值,记录被交换的索引，然后继续向下堆化
+            int i = 0;
+            while (i<j){
+                int max = i;
+                int left = 2*i+1;
+                int right = 2*i+2;
+                if(left<j && array[left]>array[max]){
+                    max = left;
+                }
+                if(right<j && array[right]>array[max]){
+                    max = right;
+                }
+                if(max!=i){
+                    AlgUtil.swap(array,i,max);
+                    // 更新i的位置
+                    i = max;
+                }else {
+                    break;
+                }
+            }
+        }
+
+
+
+        // 输出排序结果
+        for(int i=0;i<array.length;i++){
             System.out.println(array[i]);
         }
     }
 
 
-    /**
-     * @param array 默认不使用下标0 ，元素从1开始
-     * @param count 表示1-n的元素个数
-     */
-    private void heapSort(int[] array, int count) {
-        // 建堆
-        buildHeap(array, count);
-
-
-        // 排序：将栈顶元素，放入末尾，同时尾部元素放入栈顶，然后从栈顶 自顶向下堆化，依次减少count的个数
-        int k = count; // 赋值后不影响count
-        // 只要栈里还有元素
-        while (k > 1) {
-            AlgUtil.swap(array, 1, k);
-            --k;
-            heapify(array, 1, k); // 这里传入1，代表自顶向下排序
-        }
-    }
-
-    /**
-     * 建堆
-     *
-     * @param array 默认不使用下标0,如果使用的话 则 i的leftChild=2*1+1，leftChild = 2*i+2;,以此类推
-     * @param count 当前堆元素个数
-     */
-    private void buildHeap(int[] array, int count) {
-        // 从最后一个非叶子节点，依次往堆顶，进行对话
-        for (int i = count / 2; i >= 1; i--) {
-            heapify(array, i, count);
-        }
-    }
-
-
-    /**
-     * 自顶向下堆化
-     *
-     * @param array
-     * @param startIdx 如果从栈顶开始堆化，这里可以设为1
-     * @param count
-     */
-    private void heapify(int[] array, int startIdx, int count) {
-
-        int i = startIdx;
-        while (true) {
-            int maxPos = i;
-
-            // 注意：这里 2*i <= count 的等号不能取消，要注意这些边界条件
-            if (2 * i <= count && array[2 * i] > array[maxPos]) maxPos = 2 * i;
-            if (2 * i + 1 <= count && array[2 * i + 1] > array[maxPos]) maxPos = 2 * i + 1;
-            if (maxPos == i) {
-                return;
-            }
-
-            AlgUtil.swap(array, i, maxPos);
-            i = maxPos;
-        }
-    }
 
 
 }

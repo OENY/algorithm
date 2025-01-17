@@ -21,6 +21,13 @@ public class MaxHeap {
         this.capacity = capacity;
     }
 
+    /**
+     * 判断堆是是否为空
+     * @return
+     */
+    public boolean isEmpty(){
+        return count == 0;
+    }
 
     /**
      * 插入数据一般放在尾部
